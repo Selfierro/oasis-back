@@ -24,6 +24,7 @@ SECRET_KEY = '#@s)r$86rh_)n3__l1xs=r@73xc#l*q68+pdqzd&4(-prx!1%h'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+TEST = False
 
 ALLOWED_HOSTS = []
 
@@ -36,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
 ]
 
 MIDDLEWARE = [
@@ -119,3 +119,27 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "staticfiles"),
+]
+
+# media
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# gmail
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_PORT = 587
+
+from .base import *
+
+if not DEBUG:
+    from .prod import *
+
+if TEST:
+    from .test import *

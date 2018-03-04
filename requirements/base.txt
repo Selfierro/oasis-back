@@ -1,0 +1,13 @@
+# base dependencies
+
+Django
+django-allauth
+django-rest-auth
+django-rest-swagger
+django-widget-tweaks
+djangorestframework
+mysqlclient
+Pillow
+django-ckeditor==5.4.0
+django-cleanup
+django-jet
