@@ -12,3 +12,4 @@ django-ckeditor==5.4.0
 django-cleanup
 django-jet
 Fabric3==1.13.1.post1
+git+https://github.com/akoikelov/djazz
