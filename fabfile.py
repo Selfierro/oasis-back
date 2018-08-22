@@ -2,10 +2,8 @@ from fabric.context_managers import cd, prefix
 from fabric.operations import sudo, run
 from fabric.state import env
 
-PROJECT_NAME = ''
 PROJECT_ROOT = ''
 VENV_DIR = ''
-REPO = ''
 
 
 def update():
