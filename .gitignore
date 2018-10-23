@@ -104,3 +104,4 @@ ENV/
 *.sqlite3
 settings_local.py
 node_modules
+media
