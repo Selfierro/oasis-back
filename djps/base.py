@@ -106,3 +106,10 @@ CKEDITOR_UPLOAD_SLUGIFY_FILENAME = False
 CKEDITOR_JQUERY_URL = 'http://libs.baidu.com/jquery/2.0.3/jquery.min.js'
 CKEDITOR_IMAGE_BACKEND = "pillow"
 CKEDITOR_UPLOAD_PATH = "uploads/"
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'language': 'ru',
+        'toolbar': 'full'
+    }
+}
