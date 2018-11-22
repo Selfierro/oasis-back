@@ -4,6 +4,7 @@ from fabric.state import env
 
 PROJECT_ROOT = ''
 VENV_DIR = ''
+UWSGI_APP_NAME = ''
 
 
 def update():
@@ -17,4 +18,4 @@ def update():
             run('pip install -r requirements/prod.txt')
             run('./manage.py collectstatic --noinput')
             run('./manage.py migrate')
-            sudo('service uwsgi restart')
+            sudo('kill -1 `cat /var/run/uwsgi/app/%s/pid`' % UWSGI_APP_NAME)
