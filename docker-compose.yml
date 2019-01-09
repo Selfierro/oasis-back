@@ -1,11 +1,5 @@
 version: '2'
 services:
-#  elasticsearch:
-#    image: 'elasticsearch:6.5.4'
-#    volumes:
-#      - './docker_data/elastic/:/usr/share/elasticsearch/data'
-#    ports:
-#      - '9200:9200'
   postgres:
     image: 'postgres:9.6.9-alpine'
     environment:
@@ -18,13 +12,9 @@ services:
     build: .
     command: python3 manage.py runserver 0.0.0.0:8000
     depends_on:
-#      - elasticsearch
       - postgres
     links:
-#      - elasticsearch
       - postgres
-#    environment:
-#      - ELASTICSEARCH_HOST=elasticsearch
     volumes:
       - .:/code
     ports:
