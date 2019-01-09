@@ -8,6 +8,8 @@ services:
       POSTGRES_DB: djps
     volumes:
     - './docker_data/pg:/var/lib/postgresql/data'
+    ports:
+      - '5432:5432'
   webapp:
     build: .
     command: python3 manage.py runserver 0.0.0.0:8000

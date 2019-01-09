@@ -1,4 +1,5 @@
 FROM python:3.6-slim
+MAINTAINER Aykol Koykelov "kolyakoikelov@gmail.com"
 ENV PYTHONUNBUFFERED 1
 
 RUN apt-get update
@@ -11,3 +12,6 @@ ADD requirements/base.txt /code/requirements/base.txt
 RUN pip install -r requirements/base.txt
 
 ADD . /code/
+
+EXPOSE 80
+EXPOSE 443

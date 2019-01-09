@@ -106,3 +106,4 @@ settings_local.py
 node_modules
 media
 static
+./docker_data
