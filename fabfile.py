@@ -12,7 +12,6 @@ def update():
     env.user = ''
     env.password = ''
     with cd(PROJECT_ROOT):
-        sudo('git stash')
         sudo('git pull origin master')
         with prefix('source ' + VENV_DIR + '/bin/activate'):
             run('pip install -r requirements/prod.txt')
