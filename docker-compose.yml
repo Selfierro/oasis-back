@@ -10,14 +10,33 @@ services:
     - './docker_data/pg:/var/lib/postgresql/data'
     ports:
       - '5432:5432'
+  redis:
+    image: 'redis:4-alpine'
+    ports:
+    - '6379:6379'
+  celery:
+    build: .
+    command: bash -c "celery worker -A djps --loglevel=DEBUG -Q normal && celery worker -A djps --loglevel=DEBUG -Q low && celery worker -A djps --loglevel=DEBUG -Q high"
+    links:
+    - redis
+    depends_on:
+    - redis
+    volumes:
+    - '.:/code'
+    environment:
+    - REDIS_HOST=redis
   webapp:
     build: .
     command: python3 manage.py runserver 0.0.0.0:8000
     depends_on:
       - postgres
+      - redis
     links:
       - postgres
+      - redis
     volumes:
       - .:/code
     ports:
       - '8000:8000'
+    environment:
+    - REDIS_HOST=redis
