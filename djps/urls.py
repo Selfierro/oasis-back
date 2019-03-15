@@ -21,7 +21,8 @@ from djps import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^jet/', include('jet.urls', 'jet')),
+    path('jet/', include('jet.urls', 'jet')),
+    path('api/', include('api.urls')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

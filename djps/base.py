@@ -4,7 +4,8 @@ from .settings import *
 
 INSTALLED_APPS += [
     'django_cleanup',
-    'widget_tweaks'
+    'widget_tweaks',
+    'corsheaders'
 ]
 
 

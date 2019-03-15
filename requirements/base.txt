@@ -17,3 +17,5 @@ pypugjs
 psycopg2
 Celery
 redis
+django-filter
+django-cors-headers
