@@ -86,9 +86,9 @@ WSGI_APPLICATION = 'djps.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'djps',
-        'USER': 'postgres',
-        'PASSWORD': '12345678a',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
         'HOST': 'postgres',
         'PORT': '5432',
     }
