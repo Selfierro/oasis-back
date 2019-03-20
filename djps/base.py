@@ -1,3 +1,5 @@
+from kombu import Exchange, Queue
+
 from .settings import *
 
 # often used libraries
@@ -115,10 +117,22 @@ CKEDITOR_CONFIGS = {
     }
 }
 
-# redis
+# redis/celery
 
-REDIS_HOST = os.getenv('REDIS_HOST', 'localhost')
-REDIS_PORT = '6379'
-BROKER_URL = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
-BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
-CELERY_RESULT_BACKEND = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
+CELERY_BROKER_URL = "redis://{}:6379".format(
+    os.environ.get('REDIS_HOST', 'localhost'))
+CELERY_RESULT_BACKEND = 'redis://{}:6379'.format(
+    os.environ.get('REDIS_HOST', 'localhost'))
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = TIME_ZONE
+
+CELERY_QUEUES = (
+    Queue('high', Exchange('high'), routing_key='high'),
+    Queue('normal', Exchange('normal'), routing_key='normal'),
+    Queue('low', Exchange('low'), routing_key='low'),
+)
+
+CELERY_DEFAULT_QUEUE = 'normal'
+CELERY_DEFAULT_EXCHANGE = 'normal'
+CELERY_DEFAULT_ROUTING_KEY = 'normal'
