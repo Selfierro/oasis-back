@@ -16,7 +16,7 @@ services:
     - '6379:6379'
   celery:
     build: .
-    command: bash -c "celery worker -A djps --loglevel=DEBUG -Q normal && celery worker -A djps --loglevel=DEBUG -Q low && celery worker -A djps --loglevel=DEBUG -Q high"
+    command: celery -A djps worker -l info
     links:
     - redis
     depends_on:
