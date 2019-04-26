@@ -19,3 +19,4 @@ Celery
 redis
 django-filter
 django-cors-headers
+uwsgi

@@ -1,0 +1,55 @@
+version: '2'
+services:
+  elasticsearch:
+    image: 'elasticsearch:6.5.4'
+    volumes:
+    - './docker_data/elastic/:/usr/share/elasticsearch/data'
+    ports:
+    - '9200:9200'
+  postgres:
+    image: 'postgres:9.6.9-alpine'
+    environment:
+      POSTGRES_PASSWORD: 12345678a
+      POSTGRES_USER: dordoiuser
+      POSTGRES_DB: djps
+    volumes:
+    - './docker_data/pg:/var/lib/postgresql/data'
+    ports:
+      - '5432:5432'
+  redis:
+    image: 'redis:4-alpine'
+    ports:
+    - '6379:6379'
+  webapp:
+    build: .
+    depends_on:
+      - elasticsearch
+      - postgres
+      - redis
+    links:
+      - elasticsearch
+      - postgres
+      - redis
+    environment:
+      - ELASTICSEARCH_HOST=elasticsearch
+      - REDIS_HOST=redis
+    volumes:
+      - .:/code
+    ports:
+      - '8000:8000'
+      - '80:80'
+      - '443:443'
+  celery:
+    build: .
+    command: celery -A djps worker -l info
+    links:
+    - elasticsearch
+    - redis
+    depends_on:
+    - elasticsearch
+    - redis
+    volumes:
+    - '.:/code'
+    environment:
+    - ELASTICSEARCH_HOST=elasticsearch
+    - REDIS_HOST=redis
