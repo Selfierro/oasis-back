@@ -6,6 +6,11 @@ services:
     - './docker_data/elastic/:/usr/share/elasticsearch/data'
     ports:
     - '9200:9200'
+    environment:
+    - http.cors.enabled=true
+    - http.cors.allow-origin=*
+    - http.cors.allow-methods=OPTIONS, HEAD, GET, POST, PUT, DELETE
+    - http.cors.allow-headers=X-Requested-With,X-Auth-Token,Content-Type, Content-Length
   postgres:
     image: 'postgres:9.6.9-alpine'
     environment:
