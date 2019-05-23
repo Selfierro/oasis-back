@@ -15,7 +15,7 @@ services:
     image: 'postgres:9.6.9-alpine'
     environment:
       POSTGRES_PASSWORD: 12345678a
-      POSTGRES_USER: dordoiuser
+      POSTGRES_USER: postgres
       POSTGRES_DB: djps
     volumes:
     - './docker_data/pg:/var/lib/postgresql/data'
