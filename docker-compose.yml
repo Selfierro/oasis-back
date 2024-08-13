@@ -25,29 +25,36 @@ services:
     image: 'redis:4-alpine'
     ports:
     - '6379:6379'
-  celery:
-    build: .
-    command: celery -A djps worker -l info
-    links:
-    - redis
-    depends_on:
-    - redis
-    volumes:
-    - '.:/code'
-    environment:
-    - REDIS_HOST=redis
   webapp:
     build: .
-    command: python3 manage.py runserver 0.0.0.0:8000
     depends_on:
+      - elasticsearch
       - postgres
       - redis
     links:
+      - elasticsearch
       - postgres
       - redis
+    environment:
+      - ELASTICSEARCH_HOST=elasticsearch
+      - REDIS_HOST=redis
     volumes:
       - .:/code
     ports:
       - '8000:8000'
+      - '80:80'
+      - '443:443'
+  celery:
+    build: .
+    command: celery -A djps worker -l info
+    links:
+    - elasticsearch
+    - redis
+    depends_on:
+    - elasticsearch
+    - redis
+    volumes:
+    - '.:/code'
     environment:
+    - ELASTICSEARCH_HOST=elasticsearch
     - REDIS_HOST=redis
